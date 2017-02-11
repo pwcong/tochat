@@ -8,7 +8,7 @@ class Index extends React.Component{
 
 		return (
 
-			<h1>{ "Hello I'm" + this.props.data.name }</h1>
+			<h1>{ "Hello I'm " + this.props.data.name }</h1>
 		)
 		
 	}

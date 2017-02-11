@@ -6,7 +6,9 @@ export default class App extends React.Component{
 	render(){
 
 		return (
-			{ this.props.children }
+			<div className={style.root}>
+				{ this.props.children }
+			</div>
 		)
 		
 	}
