@@ -10,14 +10,14 @@ import { Router, browserHistory } from 'react-router'
 import routes from './routes'
 import reducer from './reducer'
 
-const initialState = window.__INITIAL_STATE__
+import io from 'socket.io-client'
+
+const socket = io()
 
 const store = createStore(
 	reducer, 
-	initialState, 
 	applyMiddleware(thunkMiddleware)
-)
-
+) 
 
 ReactDOM.render(
 	<Provider store={store}>
