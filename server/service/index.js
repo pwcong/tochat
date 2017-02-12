@@ -1,8 +1,4 @@
-module.exports = ctx => {
-	ctx.body = render();
-}
-
-function render() {
+function getIndex() {
   return `
 	<!DOCTYPE html>
 	<html>
@@ -19,3 +15,5 @@ function render() {
 	</html>
   `;
 }
+
+exports.getIndex = getIndex;

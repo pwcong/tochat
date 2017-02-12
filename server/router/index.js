@@ -1,12 +1,10 @@
-var React = require('react');
-
 var router = module.exports = require('koa-router')();
 
-var IndexController = require('../controller/IndexController');
+var index = require('../controller/index');
 
 router
 	.get('/', function *(){
-		IndexController(this)
+		index(this).renderIndex();
 	});
 
 
