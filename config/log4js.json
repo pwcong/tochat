@@ -4,6 +4,12 @@
       "type": "clustered",
       "appenders": [
         {
+          "type": "dateFile",
+          "filename": "log/access.log",
+          "pattern": "-yyyy-MM-dd",
+          "category": "http"
+        },
+        {
           "type": "file",
           "filename": "log/server.log",
           "maxLogSize": 10485760,

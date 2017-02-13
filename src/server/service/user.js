@@ -16,53 +16,50 @@ exports.register = user => {
 				message: 'length of uid can not be shorter than 6.'
 			});
 		}
-		else{
-
+		else {
 			logger.info('register start ===> ' + user.uid);
 
-			UserModel.findOne({
-				uid: user.uid
-			}, (err, _user) => {
-
-				if(err){
-					logger.error(err);
-					reject({
-						message: 'server error.'
-					});
-				}else {
-				
+			UserModel
+				.findOne({
+					uid: user.uid
+				})
+				.then( _user => {
+					
 					if(_user){
 						logger.info('register failed ===> ' + user.uid + ' ---> user is existed');
 						reject({
 							message: 'user is existed.'
 						});
 					}else{
+
 						var registerUser = new UserModel({
 							uid: user.uid,
 							pwd: md5(user.pwd)
 						});
 
-						registerUser.save((err, _user) => {
-
-							if(err){
+						registerUser
+							.save()
+							.then( _user => {
+								logger.info('register success ===> ' + user.uid);
+								resolve({
+									user: _user
+								});
+							})
+							.catch( err => {
 								logger.info('register failed ===> ' + user.uid + ' ---> unknown error');
 								reject({
 									message: 'unknown error.'
 								});
-							}else{
-								logger.info('register success ===> ' + user.uid)
-								resolve({
-									user: _user
-								});
-							}
-
-						});						
+							});
+								
 					}
-				}
-
-			});
+				}).catch( err => {
+					logger.error(err);
+					reject({
+						message: 'server error.'
+					});
+				});
 		}
-	
 	});
 
 }
@@ -77,18 +74,14 @@ exports.login = user => {
 			});
 		}
 		else{
+
 			logger.info('login start ===> ' + user.uid);
 
-			UserModel.findOne({
-				uid: user.uid
-			}, (err, _user) => {
-
-				if(err){
-					logger.error(err);
-					reject({
-						message: 'server error.'
-					});
-				}else {
+			UserModel
+				.findOne({
+					uid: user.uid
+				})
+				.then( _user => {
 				
 					if(_user){
 
@@ -111,18 +104,21 @@ exports.login = user => {
 
 						}
 
-
 					}else{
 						logger.info('login failed ===> ' + user.uid + ' ---> user is not existed');
 						reject({
 							message: 'user is not existed.'
 						});						
 					}
-				}
-
-			});
+				})
+				.catch( err => {
+					logger.error(err);
+					reject({
+						message: 'server error.'
+					});
+				});
 		}
-	});
 
+	});
 
 }
