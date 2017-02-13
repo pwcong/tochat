@@ -3,11 +3,6 @@ var path = require('path');
 
 module.exports = {
 
-	entry: path.resolve(__dirname, 'client'),
-	output: {
-		path: path.resolve(__dirname, 'public/static/js'),
-		filename: 'bundle.js'
-	},
 	module: {
 		rules: [
 			{
@@ -28,6 +23,7 @@ module.exports = {
 
 		]
 	},
+	devtool: 'source-map',
 	plugins: [
 		new webpack.DefinePlugin({
 		  'process.env': {

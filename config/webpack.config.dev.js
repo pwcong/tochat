@@ -3,11 +3,6 @@ var path = require('path');
 
 module.exports = {
 
-	entry: path.resolve(__dirname, 'client'),
-	output: {
-		path: path.resolve(__dirname, 'public/static/js'),
-		filename: 'bundle.js',
-	},
 	module: {
 		rules: [
 			{
@@ -28,11 +23,12 @@ module.exports = {
 
 		]
 	},
+	devtool: 'eval',
 	devServer: {
 		port: 3000,
 		contentBase: [
-			path.join(__dirname, 'public'),
-			path.join(__dirname, 'public', 'static')
+			path.join(__dirname, '..', 'public'),
+			path.join(__dirname, '..', 'public', 'static')
 		],
 		inline: true,
 		publicPath: '/js/'
