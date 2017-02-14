@@ -7,6 +7,7 @@ export default class App extends React.Component{
 
 		return (
 			<div className={style.root}>
+				<img src="/image/bg.jpg" className={style.bg}/>
 				{ this.props.children }
 			</div>
 		)

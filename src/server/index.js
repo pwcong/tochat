@@ -30,13 +30,13 @@ db.once('open' , () => {
 var path = require('path');
 var koa = require('koa');
 var static = require('koa-static');
-var logger = require('koa-logger');
+var KoaLogger = require('koa-logger');
 var compress = require('koa-compress');
 var router = require('./router');
 var session = require('koa-session');
 var cors = require('koa-cors');
 var Keygrip = require('Keygrip');
-var logger = require('./utils/LogUtils').getLogger('http');
+var logger = require('./utils/LoggerFactory').getLogger('http');
 
 var app = koa();
 
@@ -49,7 +49,7 @@ process.env.NODE_ENV === 'production' ?
 		yield next;
 		var ms = new Date - start;
 		logger.info('--> %s %s %s %s -', this.method, this.url, this.status, ms + 'ms');
-	}) : app.use(logger());
+	}) : app.use(KoaLogger());
 
 app.use(cors());	
 
@@ -59,7 +59,7 @@ app.use(static(path.resolve(__dirname, '../../public/static')));
 
 app.use(session({
 	key: 'tochat:sess',
-	maxAge: 86400000,
+	maxAge: 7200000,
 	overwrite: true,
 	httpOnly: true,
 	signed: true

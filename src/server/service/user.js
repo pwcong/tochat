@@ -1,4 +1,11 @@
-var logger = require('../utils/LogUtils').getLogger('UserService');
+var LoggerFactory = require('../utils/LoggerFactory');
+var LoggerUtils = require('../utils/LoggerUtils');
+
+const 
+	logger = LoggerFactory.getLogger('UserService'),
+	infoer = LoggerUtils.infoer(logger),
+	errorer = LoggerUtils.errorer(logger);
+	
 var UserModel = require('../model/user');
 var md5 = require('blueimp-md5');
 
@@ -17,7 +24,8 @@ exports.register = user => {
 			});
 		}
 		else {
-			logger.info('register start ===> ' + user.uid);
+			
+			infoer('register start', user.uid);
 
 			UserModel
 				.findOne({
@@ -26,7 +34,7 @@ exports.register = user => {
 				.then( _user => {
 					
 					if(_user){
-						logger.info('register failed ===> ' + user.uid + ' ---> user is existed');
+						infoer('register failed', user.uid, 'user is existed');
 						reject({
 							message: 'user is existed.'
 						});
@@ -40,13 +48,13 @@ exports.register = user => {
 						registerUser
 							.save()
 							.then( _user => {
-								logger.info('register success ===> ' + user.uid);
+								infoer('register success', user.uid);
 								resolve({
 									user: _user
 								});
 							})
 							.catch( err => {
-								logger.info('register failed ===> ' + user.uid + ' ---> unknown error');
+								infoer('register failed', user.uid, 'unknown error');
 								reject({
 									message: 'unknown error.'
 								});
@@ -54,7 +62,7 @@ exports.register = user => {
 								
 					}
 				}).catch( err => {
-					logger.error(err);
+					errorer(err);
 					reject({
 						message: 'server error.'
 					});
@@ -75,7 +83,7 @@ exports.login = user => {
 		}
 		else{
 
-			logger.info('login start ===> ' + user.uid);
+			infoer('login start', user.uid);
 
 			UserModel
 				.findOne({
@@ -87,7 +95,7 @@ exports.login = user => {
 
 						if(_user.pwd === md5(user.pwd)){
 
-							logger.info('login success ===> ' + user.uid);
+							infoer('login success', user.uid);
 
 							resolve({
 								user: _user
@@ -96,7 +104,7 @@ exports.login = user => {
 
 						}else{
 
-							logger.info('login failed ===> ' + user.uid + ' ---> wrong pwd');
+							infoer('login failed', user.uid, 'wrong pwd');
 
 							reject({
 								message: 'wrong pwd.'
@@ -105,18 +113,81 @@ exports.login = user => {
 						}
 
 					}else{
-						logger.info('login failed ===> ' + user.uid + ' ---> user is not existed');
+						infoer('login failed', user.uid, 'user is not existed');
 						reject({
 							message: 'user is not existed.'
 						});						
 					}
 				})
 				.catch( err => {
-					logger.error(err);
+					errorer(err);
 					reject({
 						message: 'server error.'
 					});
 				});
+		}
+
+	});
+
+}
+
+exports.modify = (user, pwd) => {
+
+	return new Promise( (resolve, reject) => {
+
+		if(!(user && user.uid && user.pwd && pwd)){
+			reject({
+				message: 'source user and pwd can not be empty.'
+			});
+		}
+		else{
+
+			infoer('modify start', user.uid);
+
+			UserModel.findOne({
+				uid: user.uid,
+				pwd: md5(user.pwd)
+			}).then( _user => {
+
+				if(_user){
+
+					UserModel.update(
+						{
+							uid: user.uid
+						},
+						{
+							pwd: md5(pwd)
+						}
+					).then( _user => {
+						infoer('modify success', user.uid);
+						resolve({
+							user: _user
+						});
+					}).catch( err => {
+						infoer('modify failed', user.uid, 'unknown error');
+						reject({
+							message: 'unknown error.'
+						});
+					});
+
+				}else{
+
+					infoer('modify failed', user.uid, 'user is not existed or wrong pwd');
+
+					reject({
+						message: 'user is not existed or wrong pwd.'
+					});	
+
+				}
+
+			}).catch( err => {
+				logger.error(err);
+				reject({
+					message: 'server error.'
+				});
+
+			});
+
 		}
 
 	});
