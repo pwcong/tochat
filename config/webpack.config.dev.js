@@ -3,7 +3,7 @@ var path = require('path');
 
 module.exports = {
 
-	entry: path.join(__dirname, '..', 'src', 'client', 'index.js'),
+	entry: './src/client/index.js',
 	output: {
 		path: path.join(__dirname, '..', 'public', 'static', 'js'),
 		filename: 'bundle.js'
@@ -32,8 +32,8 @@ module.exports = {
 	devServer: {
 		port: 3000,
 		contentBase: [
-			path.join(__dirname, '..', 'public'),
-			path.join(__dirname, '..', 'public', 'static')
+			'./public',
+			'./public/static'
 		],
 		inline: true,
 		publicPath: '/js/'

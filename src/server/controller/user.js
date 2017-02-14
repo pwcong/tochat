@@ -2,15 +2,17 @@ var userService = require('../service/user');
 
 module.exports = {
 
-	*register(next){
+	*register(){
 
 		if(this.is('application/json')){
 			
 			var user = this.request.body;
 
 			if(!this.request || !user.uid || !user.pwd){
-				yield next;
-				this.throw(400, 'wrong request body.');
+
+				this.status = 400;
+				this.body = 'wrong request body.';
+				return;
 			}
 
 			var ctx = this;	
@@ -29,25 +31,29 @@ module.exports = {
 							ctx.session.uid = res.user.uid;
 						},
 						rej => {
-							ctx.throw(400, rej.message);
+							ctx.status = 400;
+							ctx.body = rej.message;
 						}
 					);
 
 
 		}
-		else
-			this.throw(400, 'request header Content-Type must be application/json.');
+		else{
+			this.status = 400;
+			this.body = 'request header Content-Type must be application/json.';
+		}
 
 	},
-	*login(next){
+	*login(){
 
 		if(this.is('application/json')){
 
 			var user = this.request.body;
 
 			if(!this.request || !user.uid || !user.pwd){
-				yield next;
-				this.throw(400, 'wrong request body.');
+				this.status = 400;
+				this.body = 'wrong request body.';
+				return;
 			}
 
 			var ctx = this;	
@@ -67,13 +73,16 @@ module.exports = {
 							ctx.session.uid = res.user.uid;
 						},
 						rej => {
-							ctx.throw(400, rej.message);
+							ctx.status = 400;
+							ctx.body = rej.message;
 						}
 					);
 
 
-		}else
-			this.throw(400, 'request header Content-Type must be application/json.');
+		}else{
+			this.status = 400;
+			this.body = 'request header Content-Type must be application/json.';
+		}
 
 	}
 

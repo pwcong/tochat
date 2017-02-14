@@ -32,6 +32,7 @@
   "dependencies": {
     "blueimp-md5": "^2.6.0",
     "cross-env": "^3.1.4",
+    "fs-extra": "^2.0.0",
     "keygrip": "^1.0.1",
     "koa": "^1.2.4",
     "koa-body": "^1.6.0",
