@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react';
 import style from './style/index.css';
 import { connect } from 'react-redux';
-import { Form, Input, Icon, Row, Col, Button } from 'antd';
+import { hashHistory } from 'react-router'
+import { Form, Input, Icon, Row, Col, Button, message } from 'antd';
+
+import { toLogin, toRegister } from '../actions/userstate'
+
 const FormItem = Form.Item;
 
 const RegisterForm = Form.create()(React.createClass({
@@ -208,10 +212,13 @@ class Index extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			toggle: false
+			toggle: false,
+      loading: false
 		};
 
 		this.handleToggle = this.handleToggle.bind(this);
+    this.handleOnLogin = this.handleOnLogin.bind(this);
+    this.handleOnRegister = this.handleOnRegister.bind(this);
 	}
 
 	handleToggle(){
@@ -219,6 +226,72 @@ class Index extends React.Component{
 			toggle: !this.state.toggle
 		})
 	}
+
+  handleOnLogin(values){
+
+    const ctx = this;
+
+    const { dispatch } = this.props;
+
+    if(values && values.uid && values.pwd)
+      dispatch(toLogin(
+        values.uid,
+        values.pwd,
+        () => {
+          ctx.setState({
+            loading: true
+          });
+        },
+        () => {
+          ctx.setState({
+            loading: false
+          });
+          hashHistory.push('/home');
+        },
+        err => {
+          ctx.setState({
+            loading: false
+          }),
+          message.error(err);
+        }
+
+      ));
+    else
+      message.error('invalid values');
+  }
+
+  handleOnRegister(values){
+
+    const ctx = this;
+    const { dispatch } = ctx.props;
+
+    if(values && values.uid && values.pwd)
+      dispatch(toRegister(
+        values.uid,
+        values.pwd,
+        () => {
+          ctx.setState({
+            loading: true
+          });
+        },
+        () => {
+          ctx.setState({
+            loading: false
+          });
+          hashHistory.push('/home');
+        },
+        err => {
+          ctx.setState({
+            loading: false
+          }),
+          message.error(err);
+        }
+
+      ));
+    else
+      message.error('invalid values');
+
+  }
 
 	render(){
 		return (
@@ -232,8 +305,16 @@ class Index extends React.Component{
 
       			</div>
 
-				<LoginForm hide={this.state.toggle} onToRegister={this.handleToggle}/>
-				<RegisterForm hide={!this.state.toggle} onToLogin={this.handleToggle}/>
+				<LoginForm 
+          onSubmit={this.handleOnLogin}
+          loading={this.state.loading} 
+          hide={this.state.toggle} 
+          onToRegister={this.handleToggle}/>
+				<RegisterForm 
+          onSubmit={this.handleOnRegister}
+          loading={this.state.loading}
+          hide={!this.state.toggle} 
+          onToLogin={this.handleToggle}/>
 			</div>
 			
 		);
@@ -244,7 +325,7 @@ class Index extends React.Component{
 
 function select(state){
 	return ({
-		data: state.data
+
 	});
 }
 

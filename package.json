@@ -4,7 +4,7 @@
   "description": "web 聊天室，koa + react",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config config/webpack.config.dev.js",
+    "dev": "webpack-dev-server --config config/webpack.config.dev.js --history-api-fallback",
     "build": "webpack --config config/webpack.config.prod.js --progress",
     "server": "node src/server",
     "start": "npm run build && cross-env NODE_ENV=production npm run server"

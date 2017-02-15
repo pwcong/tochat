@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
-import { Router, browserHistory } from 'react-router';
+import { Router, hashHistory } from 'react-router';
 
 import routes from './routes';
 import reducer from './reducer';
@@ -26,7 +26,7 @@ const store = createStore(
 
 ReactDOM.render(
 	<Provider store={store}>
-		<Router routes={routes} history={browserHistory}/>
+		<Router routes={routes} history={hashHistory}/>
 	</Provider>,
 	document.getElementById('app')
 );

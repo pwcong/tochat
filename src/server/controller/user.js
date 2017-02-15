@@ -22,17 +22,19 @@ module.exports = {
 					.then(
 						res => {
 							ctx.body = {
-								status: 200,
-								message: 'register sucessfully.',
+								status: res.status,
+								message: res.message,
 								result: {
-									uid: res.user.uid
+									uid: res.result.uid
 								}
 							};
-							ctx.session.uid = res.user.uid;
+							ctx.session.uid = res.result.uid;
 						},
 						rej => {
-							ctx.status = 400;
-							ctx.body = rej.message;
+							ctx.body = {
+								status: rej.status,
+								message: rej.message
+							};
 						}
 					);
 
@@ -63,18 +65,19 @@ module.exports = {
 					.then(
 						res => {
 							ctx.body = {
-								status: 200,
-								message: 'login sucessfully.',
+								status: res.status,
+								message: res.message,
 								result: {
-									uid: res.user.uid
+									uid: res.result.uid
 								}
 							};
-
-							ctx.session.uid = res.user.uid;
+							ctx.session.uid = res.result.uid;
 						},
 						rej => {
-							ctx.status = 400;
-							ctx.body = rej.message;
+							ctx.body = {
+								status: rej.status,
+								message: rej.message
+							};
 						}
 					);
 
