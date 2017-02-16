@@ -31,6 +31,6 @@ ReactDOM.render(
 	document.getElementById('app')
 );
 
-setInterval( () => {
-	console.log(store.getState());
-}, 5000);
+// setInterval( () => {
+// 	console.log(store.getState());
+// }, 5000);

@@ -1,4 +1,5 @@
 var userService = require('../service/user');
+var uuidV1 = require('uuid/v1');
 
 module.exports = {
 
@@ -21,14 +22,20 @@ module.exports = {
 					.register(user)
 					.then(
 						res => {
+
+							var uuid = uuidV1();
+
 							ctx.body = {
 								status: res.status,
 								message: res.message,
 								result: {
-									uid: res.result.uid
+									uid: res.result.uid,
+									token: uuid
 								}
 							};
-							ctx.session.uid = res.result.uid;
+							
+							redisClient.set(res.result.uid, uuid);
+
 						},
 						rej => {
 							ctx.body = {
@@ -64,13 +71,19 @@ module.exports = {
 					.login(user)
 					.then(
 						res => {
+
+							var uuid = uuidV1();
+
 							ctx.body = {
 								status: res.status,
 								message: res.message,
 								result: {
-									uid: res.result.uid
+									uid: res.result.uid,
+									token: uuid
 								}
 							};
+
+							redisClient.set(res.result.uid, uuid);
 						},
 						rej => {
 							ctx.body = {

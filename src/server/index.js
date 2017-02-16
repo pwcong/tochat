@@ -5,22 +5,36 @@
 global.Promise = require('bluebird');
 
 /*
- * 初始化数据库连接
+ * 初始化mongo数据库连接
  */
-var config = require('../../config/mongodb.config');
+var mongooseConfig = require('../../config/mongodb.config');
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(config.uri, config.options);
+mongoose.connect(mongooseConfig.uri, mongooseConfig.options);
 
 var db = mongoose.connection;
 db.on('error', error => {
-	console.log('Connection error: ' + error);
+	console.log('Mongoose connection error: ' + error);
 	process.exit(0);
 })
 db.once('open' , () => {
-	console.log("Mongoose has connected database successfully.")
+	console.log("Mongoose has connected database successfully")
+})
+
+/*
+ * 初始化redis数据库连接
+ */
+var redisConfig = require('../../config/redis.config');
+var redis = require('redis');
+global.redisClient = redis.createClient(redisConfig);
+redisClient.on('error', error => {
+	console.log('Redis connectino error: ' + error);
+	process.exit(0);
+})
+redisClient.on('connect', () => {
+	console.log('Redis has connected database successfully');
 })
 
 /*

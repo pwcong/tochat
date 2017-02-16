@@ -2,11 +2,12 @@ import 'whatwg-fetch';
 import md5 from 'blueimp-md5';
 
 export const USERSTATE_LOGIN = "USERSTATE_LOGIN";
-export function login(uid){
+export function login(uid, token){
 	return ({
 		type: USERSTATE_LOGIN,
 		payload: {
-			uid: uid
+			uid,
+			token
 		}
 	});
 }
@@ -31,7 +32,7 @@ export function toLogin(uid, pwd, onStart, onSuccess, onFailed){
 			return res.json();
 		}).then( json => {
 			if(json.status === 200){
-				dispatch(login(uid));
+				dispatch(login(json.result.uid, json.result.token));
 				onSuccess();
 			}
 			else
@@ -67,7 +68,7 @@ export function toRegister(uid, pwd, onStart, onSuccess, onFailed){
 			return res.json();
 		}).then( json => {
 			if(json.status === 200){
-				dispatch(login(uid));
+				dispatch(login(json.result.uid, json.result.token));
 				onSuccess();
 			}
 			else

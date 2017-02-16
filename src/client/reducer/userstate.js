@@ -8,6 +8,7 @@ export const INITIAL_STATE = {
 
 	isLogined: false,
 	uid: '',
+	token: '',
 	userinfo: {
 		avatar: '',
 		nickname: '',
@@ -26,7 +27,8 @@ export default ( state = INITIAL_STATE, action) => {
 		case USERSTATE_LOGIN:
 			return Object.assign({}, state, {
 				isLogined: true,
-				uid: action.payload.uid
+				uid: action.payload.uid,
+				token: action.payload.token
 			});
 		case USERSTATE_LOGOUT:
 			return INITIAL_STATE;

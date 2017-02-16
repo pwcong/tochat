@@ -58,4 +58,5 @@ typings/
 .env
 
 # db data
+*.rdb
 data
