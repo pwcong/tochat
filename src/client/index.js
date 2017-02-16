@@ -30,3 +30,7 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById('app')
 );
+
+setInterval( () => {
+	console.log(store.getState());
+}, 5000);

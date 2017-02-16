@@ -33,7 +33,6 @@ var static = require('koa-static');
 var KoaLogger = require('koa-logger');
 var compress = require('koa-compress');
 var router = require('./router');
-var session = require('koa-session');
 var cors = require('koa-cors');
 var Keygrip = require('Keygrip');
 var logger = require('./utils/LoggerFactory').getLogger('http');
@@ -56,14 +55,6 @@ app.use(cors());
 app.use(compress());
 
 app.use(static(path.resolve(__dirname, '../../public/static')));
-
-app.use(session({
-	key: 'tochat:sess',
-	maxAge: 7200000,
-	overwrite: true,
-	httpOnly: true,
-	signed: true
-}, app));
 
 app
   .use(router.routes())

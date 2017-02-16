@@ -71,7 +71,6 @@ module.exports = {
 									uid: res.result.uid
 								}
 							};
-							ctx.session.uid = res.result.uid;
 						},
 						rej => {
 							ctx.body = {
@@ -94,14 +93,6 @@ module.exports = {
 
 			var reqBody = this.request.body;
 
-			if( !this.session.uid || this.session.uid !== reqBody.user.uid){
-
-				this.status = 400;
-				this.body = 'has not sign in.';
-				return;
-
-			}
-
 			if(!reqBody || !reqBody.user || !reqBody.user.uid || !reqBody.user.pwd || !reqBody.pwd){
 				this.status = 400;
 				this.body = 'wrong request body.';
@@ -121,8 +112,6 @@ module.exports = {
 									uid: res.user.uid
 								}
 							};
-
-							ctx.session.uid = res.user.uid;
 						},
 						rej => {
 							ctx.status = 400;

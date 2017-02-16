@@ -3,6 +3,7 @@ var koaBody = require('koa-body')();
 var send = require('koa-send');
 
 var UserController = require('../controller/user');
+var UserInfoController = require('../controller/userinfo');
 
 router
 	.get('/', function*(){
@@ -10,6 +11,8 @@ router
 	})
 	.post('/user/register', koaBody, UserController.register)
 	.post('/user/login', koaBody, UserController.login)
-	.post('/user/modify', koaBody, UserController.modify);
+	.post('/user/modify', koaBody, UserController.modify)
+	.get('/userinfo/get/:uid',UserInfoController.get);
+	
 
 

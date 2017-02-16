@@ -5,6 +5,8 @@ import style from './style/intro.css';
 
 import UserInfo from '../component/UserInfo';
 
+import { toGetUserInfo } from '../actions/userstate';
+
 class Intro extends Component {
 
     constructor(props){
@@ -13,8 +15,19 @@ class Intro extends Component {
             editing: false
         };
 
+        this.componentWillMount = this.componentWillMount.bind(this);
         this.handleEditToggle = this.handleEditToggle.bind(this);
+    
 
+    }
+
+    componentWillMount(){
+        this.props.dispatch(toGetUserInfo(
+            this.props.userstate.uid,
+            err => {
+                message.error(err);
+            }
+        ));
     }
 
     handleEditToggle(){
@@ -25,7 +38,7 @@ class Intro extends Component {
 
     render() {
 
-        var { avatar, nickname, sex, email, github } = this.props.userstate.intro;
+        var { avatar, nickname, sex, email, github } = this.props.userstate.userinfo;
 
         return (
             <div className={style.root}>

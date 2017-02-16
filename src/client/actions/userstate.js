@@ -87,3 +87,36 @@ export function logout(){
 		type: USERSTATE_LOGOUT
 	});
 }
+
+export const USERSTATE_GETUSERINFO = 'USERSTATE_GETUSERINFO';
+export function getUserInfo(userinfo){
+	return ({
+		type: USERSTATE_GETUSERINFO,
+		payload: {
+			userinfo
+		}
+	});
+}
+
+export function toGetUserInfo(uid, onFailed){
+
+	return dispatch => {
+
+		fetch('/userinfo/get/' + uid)
+		.then( res => {
+			return res.json();
+		}).then( json => {
+			if(json.status === 200){
+				dispatch(getUserInfo(json.result.userinfo));
+			}
+			else
+				onFailed(json.message);
+		}).catch( err => {
+			onFailed('server error');
+		})
+
+
+	}
+
+
+}

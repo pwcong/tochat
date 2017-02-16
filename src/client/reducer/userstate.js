@@ -1,18 +1,19 @@
 import { 
 	USERSTATE_LOGIN,
-	USERSTATE_LOGOUT
+	USERSTATE_LOGOUT,
+	USERSTATE_GETUSERINFO
 } from '../actions/userstate'
 
 export const INITIAL_STATE = {
 
-	isLogined: true,
+	isLogined: false,
 	uid: '',
-	intro: {
+	userinfo: {
 		avatar: '',
-		nickname: 'Pwcong',
-		sex: 1,
-		email: 'pwcong@foxmail.com',
-		github: 'https://github.com/pwcong'
+		nickname: '',
+		sex: 0,
+		email: '',
+		github: ''
 	}
 
 };
@@ -28,7 +29,11 @@ export default ( state = INITIAL_STATE, action) => {
 				uid: action.payload.uid
 			});
 		case USERSTATE_LOGOUT:
-			return state;
+			return INITIAL_STATE;
+		case USERSTATE_GETUSERINFO:
+			return Object.assign({}, state, {
+				userinfo: action.payload.userinfo
+			})
 		default:
 			return state;
 
