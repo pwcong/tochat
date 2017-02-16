@@ -5,7 +5,9 @@ export const USERSTATE_LOGIN = "USERSTATE_LOGIN";
 export function login(uid){
 	return ({
 		type: USERSTATE_LOGIN,
-		uid: uid
+		payload: {
+			uid: uid
+		}
 	});
 }
 
@@ -77,4 +79,11 @@ export function toRegister(uid, pwd, onStart, onSuccess, onFailed){
 	}
 
 
+}
+
+export const USERSTATE_LOGOUT = 'USERSTATE_LOGOUT';
+export function logout(){
+	return ({
+		type: USERSTATE_LOGOUT
+	});
 }

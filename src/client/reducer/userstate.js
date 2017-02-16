@@ -1,15 +1,18 @@
-import { USERSTATE_LOGIN } from '../actions/userstate'
+import { 
+	USERSTATE_LOGIN,
+	USERSTATE_LOGOUT
+} from '../actions/userstate'
 
 export const INITIAL_STATE = {
 
-	isLogined: false,
+	isLogined: true,
 	uid: '',
-	userinfo: {
+	intro: {
 		avatar: '',
-		name: '',
-		birthday: '',
-		sex: 0,
-		summary: '' 
+		nickname: 'Pwcong',
+		sex: 1,
+		email: 'pwcong@foxmail.com',
+		github: 'https://github.com/pwcong'
 	}
 
 };
@@ -22,8 +25,10 @@ export default ( state = INITIAL_STATE, action) => {
 		case USERSTATE_LOGIN:
 			return Object.assign({}, state, {
 				isLogined: true,
-				uid: action.uid
+				uid: action.payload.uid
 			});
+		case USERSTATE_LOGOUT:
+			return state;
 		default:
 			return state;
 

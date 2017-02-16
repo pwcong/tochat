@@ -1,0 +1,30 @@
+:local .root{
+    width: 100%;
+    min-width: 250px;
+}
+
+:local .item-container{
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+:local .item-header{
+    font-size: 18px;
+    text-align: right;
+}
+
+:local .item-header i{
+    margin-right: 8px;
+}
+
+:local .item{
+    font-size: 16px;
+}
+
+:local .btn{
+
+    margin-top: 16px;
+    width: 100%;
+    text-align: center;
+}

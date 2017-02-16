@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { Link, IndexLink, hashHistory } from 'react-router';
 import style from './style/home.css';
 
+import { logout } from '../actions/userstate';
 
 class Home extends React.Component{
 
 	constructor(props) {
 		super(props);
 		this.componentWillMount = this.componentWillMount.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
 	}
 
 	componentWillMount() {
@@ -16,6 +18,10 @@ class Home extends React.Component{
 			hashHistory.push('/');
 	}
 
+	handleLogout(){
+		this.props.dispatch(logout());
+		hashHistory.push('/');
+	}
 
 	render(){
 
@@ -27,7 +33,7 @@ class Home extends React.Component{
 
 				<div className={style.sidebar}>
 
-					<Link to="/home/userinfo">
+					<Link to="/home/intro">
 						<img 
 							className={style['sidebar-avatar']}
 							src={userinfo ? ( userinfo.avatar || '/image/avatar.jpg' ) : '/image/avatar.jpg'} 
@@ -50,7 +56,7 @@ class Home extends React.Component{
 						</div>
 					</div>
 
-					<div className={style['btn-logout']}>
+					<div className={style['btn-logout']} onClick={this.handleLogout}>
 						<a><span className="fa fa-sign-out fa-2x"></span></a>
 					</div>
 

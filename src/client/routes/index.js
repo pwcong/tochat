@@ -3,11 +3,10 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from '../view/app';
 import Index from '../view/index';
-import Home from '../view/home'
-import Hall from '../view/hall'
-import About from '../view/about'
-
-
+import Home from '../view/home';
+import Hall from '../view/hall';
+import About from '../view/about';
+import Intro from '../view/intro';
 
 export default (
 
@@ -16,6 +15,7 @@ export default (
 		<Route path="home" component={Home}>
 			<IndexRoute component={Hall}/>
 			<Route path="about" component={About}/>
+			<Route path="intro" component={Intro}/>
 		</Route>
 
 	</Route>

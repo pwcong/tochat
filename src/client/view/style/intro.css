@@ -1,0 +1,44 @@
+:local .root{
+    position: relative;
+    width: 60%;
+    height: 80%;
+    background: white;
+    border-radius: 4px;
+}
+
+:local .tools{
+    
+    background-color: #666;
+    padding: 16px;
+    width: 100%;
+}
+
+:local .tools-left{
+    text-align: left;
+}
+
+:local .tools-right{
+    text-align: right;
+}
+
+:local .container{
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+}
+
+:local .title{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+:local .title h2{
+    color: white;
+    padding: 16px;
+}
