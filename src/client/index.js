@@ -10,14 +10,10 @@ import { Router, hashHistory } from 'react-router';
 import routes from './routes';
 import reducer from './reducer';
 
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
+import api from './api';
 
-// global.socket = io();
-
-// socket.on("message", msg => {
-// 	console.log(msg)
-// });
-
+global.socket = io(api.ioUrl);
 
 const store = createStore(
 	reducer, 

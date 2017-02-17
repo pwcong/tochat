@@ -13,7 +13,6 @@ const
 	errorer = LoggerUtils.errorer(logger);
 	
 var UserInfoModel = require('../model/userinfo');
-var md5 = require('blueimp-md5');
 
 exports.get = uid => {
 

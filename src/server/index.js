@@ -46,7 +46,7 @@ var koa = require('koa');
 var static = require('koa-static');
 var KoaLogger = require('koa-logger');
 var compress = require('koa-compress');
-var router = require('./router');
+var KoaRouter = require('./router/koa');
 var cors = require('koa-cors');
 var Keygrip = require('Keygrip');
 var logger = require('./utils/LoggerFactory').getLogger('http');
@@ -71,8 +71,8 @@ app.use(compress());
 app.use(static(path.resolve(__dirname, '../../public/static')));
 
 app
-  .use(router.routes())
-  .use(router.allowedMethods());
+  .use(KoaRouter.routes())
+  .use(KoaRouter.allowedMethods());
 
 /*
  * 初始化Socket服务器
@@ -80,19 +80,14 @@ app
 
 var server = require('http').createServer(app.callback());
 var io = require('socket.io')(server);
+var IORouter = require('./router/io')(io);
 
-io.on('connection', socket => {
-	console.log("one user connected: " + socket.id);
-	socket.emit("message", "welcome");
-	socket.on("message", msg => {
-		console.log(msg);
-	});
-	socket.on("disconnect", () => {
-		console.log("one user disconnected: " + socket.id);
-	});
-});
+IORouter();
 
 
+/*
+ * 开启所有后台服务器，绑定监听端口
+ */
 var port = process.env.NODE_ENV === 'production' ? 80 : 4000;
 
 server.listen( port, () => {
