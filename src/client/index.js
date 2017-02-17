@@ -11,9 +11,11 @@ import routes from './routes';
 import reducer from './reducer';
 
 import io from 'socket.io-client';
-import api from './api';
+import Config from '../../config/server.config';
 
-global.socket = io(api.ioUrl);
+const clientConfig = Config(false);
+
+global.socket = io(clientConfig.url.io);
 
 const store = createStore(
 	reducer, 

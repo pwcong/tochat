@@ -1,6 +1,8 @@
 import 'whatwg-fetch';
 import md5 from 'blueimp-md5';
-import api from '../api';
+import Config from '../../../config/server.config';
+
+const clientConfig = Config(false);
 
 export const USERSTATE_LOGIN = "USERSTATE_LOGIN";
 export function login(uid, token){
@@ -20,7 +22,7 @@ export function toLogin(uid, pwd, onStart, onSuccess, onFailed){
 
 		onStart();
 
-		fetch(api.loginUrl, {
+		fetch(clientConfig.url.login, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -56,7 +58,7 @@ export function toRegister(uid, pwd, onStart, onSuccess, onFailed){
 
 		onStart();
 
-		fetch(api.registerUrl, {
+		fetch(clientConfig.url.register, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -104,7 +106,7 @@ export function toGetUserInfo(uid, onFailed){
 
 	return dispatch => {
 
-		fetch(api.getUserInfoUrl + uid)
+		fetch(clientConfig.url.getUserInfo + uid)
 		.then( res => {
 			return res.json();
 		}).then( json => {
@@ -145,7 +147,7 @@ export function toModifyUserInfo(uid, token, userinfo, onStart, onSuccess, onFai
 
 		onStart();
 
-		fetch(api.modifyUserInfoUrl, {
+		fetch(clientConfig.url.modifyUserInfo, {
 
 			method: 'POST',
 			headers: {

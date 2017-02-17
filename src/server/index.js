@@ -88,7 +88,10 @@ IORouter();
 /*
  * 开启所有后台服务器，绑定监听端口
  */
-var port = process.env.NODE_ENV === 'production' ? 80 : 4000;
+var Config = require('../../config/server.config');
+const serverConfig = Config(true);
+
+var port = serverConfig.port;
 
 server.listen( port, () => {
 	console.log("Listening on 127.0.0.1:" + port);
