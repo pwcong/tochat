@@ -10,7 +10,7 @@ module.exports = isServer => {
             login: doman + '/user/login',
             register: doman + '/user/register',
             modifyUser: doman + '/user/modify',
-            getUserInfo: doman + '/userinfo/get/',
+            getUserInfo: doman + '/userinfo/get',
             modifyUserInfo: doman + '/userinfo/modify',
             getRooms: doman + '/room',
             createRoom: doman + '/room/create'

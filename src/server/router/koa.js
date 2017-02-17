@@ -17,7 +17,7 @@ router
 	.post(serverConfig.url.register, koaBody, UserController.register)
 	.post(serverConfig.url.login, koaBody, UserController.login)
 	.post(serverConfig.url.modifyUser, koaBody, UserController.modify)
-	.get(serverConfig.url.getUserInfo+':uid',UserInfoController.get)
+	.get(serverConfig.url.getUserInfo + '/:uid',UserInfoController.get)
 	.post(serverConfig.url.modifyUserInfo, koaBody, UserInfoController.modify)
 	.get(serverConfig.url.getRooms,RoomController.get)
 	.post(serverConfig.url.createRoom, koaBody, RoomController.create);

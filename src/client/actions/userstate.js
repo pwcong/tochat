@@ -106,7 +106,7 @@ export function toGetUserInfo(uid, onFailed){
 
 	return dispatch => {
 
-		fetch(clientConfig.url.getUserInfo + uid)
+		fetch(clientConfig.url.getUserInfo + '/' + uid)
 		.then( res => {
 			return res.json();
 		}).then( json => {
