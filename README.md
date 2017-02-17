@@ -2,6 +2,11 @@
 简单的web聊天室
 
 # 开发技术
+
+数据库
+* mongodb
+* redis
+
 后台：
 * koa
 * mongoose
