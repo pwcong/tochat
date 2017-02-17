@@ -1,7 +1,8 @@
 import { 
 	USERSTATE_LOGIN,
 	USERSTATE_LOGOUT,
-	USERSTATE_GETUSERINFO
+	USERSTATE_GETUSERINFO,
+	USERSTATE_MODIFYUSERINFO
 } from '../actions/userstate'
 
 export const INITIAL_STATE = {
@@ -33,6 +34,10 @@ export default ( state = INITIAL_STATE, action) => {
 		case USERSTATE_LOGOUT:
 			return INITIAL_STATE;
 		case USERSTATE_GETUSERINFO:
+			return Object.assign({}, state, {
+				userinfo: action.payload.userinfo
+			})
+		case USERSTATE_MODIFYUSERINFO:
 			return Object.assign({}, state, {
 				userinfo: action.payload.userinfo
 			})

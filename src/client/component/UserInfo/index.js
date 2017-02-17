@@ -153,7 +153,7 @@ class UserInfo extends Component {
                 {
                     this.props.editing ? (
                         <div className={style.btn}>
-                            <Button type="primary" onClick={this.handleSubmit}>提交修改</Button>
+                            <Button type="primary" onClick={this.handleSubmit} loading={this.props.loading}>提交修改</Button>
                         </div>
                     ) : ''
                 }
@@ -174,6 +174,7 @@ function getSexString(sex){
 }
 
 UserInfo.propTypes = {
+    loading: PropTypes.bool,
     avatar: PropTypes.string,
     sex: PropTypes.number,
     editing: PropTypes.bool,
@@ -184,6 +185,7 @@ UserInfo.propTypes = {
 };
 
 UserInfo.defaultProps = {
+    loading: false,
     avatar: '',
     github: '',
     email: '',

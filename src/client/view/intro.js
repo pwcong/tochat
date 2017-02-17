@@ -5,19 +5,20 @@ import style from './style/intro.css';
 
 import UserInfo from '../component/UserInfo';
 
-import { toGetUserInfo } from '../actions/userstate';
+import { toGetUserInfo, toModifyUserInfo } from '../actions/userstate';
 
 class Intro extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            editing: false
+            editing: false,
+            postEditing: false
         };
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.handleEditToggle = this.handleEditToggle.bind(this);
-    
+        this.handleEditUserInfoSubmit = this.handleEditUserInfoSubmit.bind(this);
 
     }
 
@@ -34,6 +35,36 @@ class Intro extends Component {
         this.setState({
             editing: !this.state.editing
         });
+    }
+
+    handleEditUserInfoSubmit(values){
+
+        const ctx = this;
+        const { dispatch, userstate } = this.props;
+
+        dispatch(toModifyUserInfo(
+            userstate.uid,
+            userstate.token,
+            values,
+            () => {
+                ctx.setState({
+                    postEditing: true
+                })
+            },
+            () => {
+                message.success('修改成功');
+                ctx.setState({
+                    postEditing: false,
+                    editing: false
+                })
+            },
+            err => {
+                message.error(err);
+                ctx.setState({
+                    postEditing: false
+                })
+            }
+        ));
     }
 
     render() {
@@ -60,6 +91,8 @@ class Intro extends Component {
                 <div className={style.container}>
 
                     <UserInfo 
+                        loading={this.state.postEditing}
+                        onSubmit={this.handleEditUserInfoSubmit}
                         avatar={avatar}
                         nickname={nickname}
                         sex={sex}

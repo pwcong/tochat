@@ -118,6 +118,57 @@ export function toGetUserInfo(uid, onFailed){
 
 
 	}
+}
 
+export const USERSTATE_MODIFYUSERINFO = 'USERSTATE_MODIFYUSERINFO';
+export function modifyUserInfo(userinfo){
+	return ({
+		type: USERSTATE_MODIFYUSERINFO,
+		payload: {
+			userinfo
+		}
+	});
+}
+
+export function toModifyUserInfo(uid, token, userinfo, onStart, onSuccess, onFailed){
+
+	return dispatch => {
+
+		var postUserInfo = {};
+
+		userinfo.avatar && (postUserInfo.avatar = userinfo.avatar);
+		userinfo.nickname && (postUserInfo.nickname = userinfo.nickname);
+		(userinfo.sex||userinfo.sex===0) ? (postUserInfo.sex = userinfo.sex) : '';
+		userinfo.email && (postUserInfo.email = userinfo.email);
+		userinfo.github && (postUserInfo.github = userinfo.github);
+
+		onStart();
+
+		fetch('/userinfo/modify', {
+
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				uid,
+				token,
+				userinfo: postUserInfo
+			})
+		})
+		.then( res => {
+			return res.json();
+		}).then( json => {
+			if(json.status === 200){
+				onSuccess();
+				dispatch(modifyUserInfo(userinfo));
+			}
+			else
+				onFailed(json.message);
+		}).catch( err => {
+			onFailed('server error');
+		})		
+
+	}
 
 }

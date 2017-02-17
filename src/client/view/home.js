@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link, IndexLink, hashHistory } from 'react-router';
 import style from './style/home.css';
-
-import { logout } from '../actions/userstate';
+import { message } from 'antd';
+import { logout, toGetUserInfo } from '../actions/userstate';
 
 class Home extends React.Component{
 
@@ -16,6 +16,14 @@ class Home extends React.Component{
 	componentWillMount() {
 		if(!this.props.userstate.isLogined)
 			hashHistory.push('/');
+
+		this.props.dispatch(toGetUserInfo(
+			this.props.userstate.uid,
+			err => {
+				message.error(err);
+			}
+		));
+		
 	}
 
 	handleLogout(){
