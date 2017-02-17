@@ -7,7 +7,7 @@
     "dev": "webpack-dev-server --config config/webpack.config.dev.js --history-api-fallback",
     "build": "webpack --config config/webpack.config.prod.js --progress",
     "server": "node src/server",
-    "start": "npm run build && cross-env NODE_ENV=production npm run server"
+    "start": "cross-env NODE_ENV=production npm run build && cross-env NODE_ENV=production npm run server"
   },
   "repository": {
     "type": "git",

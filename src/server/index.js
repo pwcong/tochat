@@ -93,7 +93,7 @@ io.on('connection', socket => {
 });
 
 
-var port = process.env.NODE_ENV === 'production' ? 80 : 3000;
+var port = process.env.NODE_ENV === 'production' ? 80 : 4000;
 
 server.listen( port, () => {
 	console.log("Listening on 127.0.0.1:" + port);

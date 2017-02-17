@@ -1,5 +1,6 @@
 import 'whatwg-fetch';
 import md5 from 'blueimp-md5';
+import api from '../api';
 
 export const USERSTATE_LOGIN = "USERSTATE_LOGIN";
 export function login(uid, token){
@@ -19,7 +20,7 @@ export function toLogin(uid, pwd, onStart, onSuccess, onFailed){
 
 		onStart();
 
-		fetch('/user/login', {
+		fetch(api.loginUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -55,7 +56,7 @@ export function toRegister(uid, pwd, onStart, onSuccess, onFailed){
 
 		onStart();
 
-		fetch('/user/register', {
+		fetch(api.registerUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -103,7 +104,7 @@ export function toGetUserInfo(uid, onFailed){
 
 	return dispatch => {
 
-		fetch('/userinfo/get/' + uid)
+		fetch(api.getUserInfoUrl + uid)
 		.then( res => {
 			return res.json();
 		}).then( json => {
@@ -144,7 +145,7 @@ export function toModifyUserInfo(uid, token, userinfo, onStart, onSuccess, onFai
 
 		onStart();
 
-		fetch('/userinfo/modify', {
+		fetch(api.modifyUserInfoUrl, {
 
 			method: 'POST',
 			headers: {
