@@ -12,7 +12,7 @@ module.exports = {
 			if(!user || !user.uid || !user.pwd){
 
 				this.status = 400;
-				this.body = 'wrong request body.';
+				this.body = 'wrong request body';
 				return;
 			}
 
@@ -49,7 +49,7 @@ module.exports = {
 		}
 		else{
 			this.status = 400;
-			this.body = 'request header Content-Type must be application/json.';
+			this.body = 'request header Content-Type must be application/json';
 		}
 
 	},
@@ -61,7 +61,7 @@ module.exports = {
 
 			if(!user || !user.uid || !user.pwd){
 				this.status = 400;
-				this.body = 'wrong request body.';
+				this.body = 'wrong request body';
 				return;
 			}
 
@@ -96,7 +96,7 @@ module.exports = {
 
 		}else{
 			this.status = 400;
-			this.body = 'request header Content-Type must be application/json.';
+			this.body = 'request header Content-Type must be application/json';
 		}
 
 	},
@@ -108,7 +108,7 @@ module.exports = {
 
 			if(!reqBody || !reqBody.user || !reqBody.user.uid || !reqBody.user.pwd || !reqBody.pwd){
 				this.status = 400;
-				this.body = 'wrong request body.';
+				this.body = 'wrong request body';
 				return;
 			}
 
@@ -120,7 +120,7 @@ module.exports = {
 						res => {
 							ctx.body = {
 								status: 200,
-								message: 'modify sucessfully.',
+								message: 'modify sucessfully',
 								result: {
 									uid: res.user.uid
 								}
@@ -135,7 +135,7 @@ module.exports = {
 
 		}else{
 			this.status = 400;
-			this.body = 'request header Content-Type must be application/json.';
+			this.body = 'request header Content-Type must be application/json';
 		}
 
 	}

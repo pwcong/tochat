@@ -12,7 +12,8 @@ router
 	.post('/user/register', koaBody, UserController.register)
 	.post('/user/login', koaBody, UserController.login)
 	.post('/user/modify', koaBody, UserController.modify)
-	.get('/userinfo/get/:uid',UserInfoController.get);
+	.get('/userinfo/get/:uid',UserInfoController.get)
+	.post('/userinfo/modify', koaBody, UserInfoController.modify);
 	
 
 
