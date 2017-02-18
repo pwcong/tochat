@@ -1,5 +1,71 @@
 :local .root{
 
-	
+    min-width: 500px;
+	width: 90%;
+    height: 100%;
+    background: white;
+    box-shadow: 0px 0px 20px 2px;
+    border-radius: 4px;
+
+    display: flex;
+    flex-flow: row nowrap;
+
+}
+
+:local .room-container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 200px;
+
+}
+
+:local .room-head{
+    height: 60px;
+    width: 100%;
+    border-bottom: 1px solid #aaa;
+
+    display: flex;
+    flex-flow: row nowrap;
+
+}
+
+:local .room-head-item{
+    border-top-left-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #666;
+    background: white;
+    transition: color 0.4s, background 0.4s;
+}
+
+:local .room-head-item:hover{
+    color: white;
+    background: orange;
+}
+
+:local .room-head-item:active{
+    color: white;
+    background: #FF6600;
+}
+
+
+:local .room-list{
+    width: 100%;
+    flex: 1;
+    padding: 8px;
+
+}
+
+:local .container{
+
+    flex: 1;
+    height: 100%;
+    border-left: 1px solid #aaa;
 
 }

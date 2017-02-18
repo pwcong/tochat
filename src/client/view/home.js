@@ -4,6 +4,7 @@ import { Link, IndexLink, hashHistory } from 'react-router';
 import style from './style/home.css';
 import { message } from 'antd';
 import { logout, toGetUserInfo } from '../actions/userstate';
+import { toGetRooms } from '../actions/roomstate';
 
 class Home extends React.Component{
 
@@ -23,6 +24,14 @@ class Home extends React.Component{
 				message.error(err);
 			}
 		));
+
+		this.props.dispatch(toGetRooms(
+			()=>{},
+			()=>{},
+			err => {
+				message.error(err);
+			}
+		))
 		
 	}
 

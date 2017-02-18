@@ -1,0 +1,41 @@
+:local .root{
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    border-bottom: 2px #dedede solid;
+    transition: border-bottom 0.3s;
+}
+
+:local .root:hover{
+    border-bottom: 2px orange solid;
+} 
+
+:local .active{
+    border-bottom: 2px #FF6600 solid;
+}
+
+
+:local .container{
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+:local .icon{
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+:local .name{
+    
+    flex: 1;
+    font-size: 18px;
+}
+
+:local .intro{
+    width: 100%;
+    font-size: 14px;
+}
