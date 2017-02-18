@@ -55,12 +55,10 @@
 	cursor: pointer;
 	padding: 8px;
 	width: 100%;
-	transform: rotate(180deg);
 	position: absolute;
 	left: 0px;
 	bottom: 0px;
 	text-align: center;
-	transition: background 0.3s;
 }
 
 :local .btn-logout a{
@@ -68,11 +66,6 @@
 	transition: color 0.3s;
 }
 
-:local .btn-logout:hover{
-
-	background: #333;
-
-}
 :local .btn-logout:hover a{
 
 	color: orange;

@@ -65,8 +65,8 @@ RoomItem.defaultProps = {
     sign: 0,
     name: '',
     intro: '',
-    onClick(){
-        console.log('on click');
+    onClick(name){
+        console.log('on click: ' + name);
     }
 }
 

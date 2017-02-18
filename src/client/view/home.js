@@ -74,7 +74,7 @@ class Home extends React.Component{
 					</div>
 
 					<div className={style['btn-logout']} onClick={this.handleLogout}>
-						<a><span className="fa fa-sign-out fa-2x"></span></a>
+						<a><span className="fa fa-power-off fa-2x"></span></a>
 					</div>
 
 
