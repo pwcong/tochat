@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import style from './style.css';
 import { Button } from 'antd';
 import InputTools from '../InputTools';
+import MessageBubble from '../MessageBubble';
 
 import { isSymbol, convertSymbolToReactDOMNode } from 'react-expressions-baidu';
 
@@ -43,9 +44,19 @@ class Room extends Component {
                 </div>
 
                 <div className={style.content}>
+                    <MessageBubble>
+                        Hello World
+                    </MessageBubble>
+                    
+                    <MessageBubble></MessageBubble>
+
                     {
                         this.state.symbols.map(symbol => {
-                            return <div key={Math.random()}>{convertSymbolToReactDOMNode(symbol)}</div>
+                            return <div key={Math.random()}>
+                                        <MessageBubble>
+                                        {convertSymbolToReactDOMNode(symbol)}
+                                        </MessageBubble>
+                                    </div>
                         })
                     }
                 </div>
