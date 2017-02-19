@@ -3,16 +3,31 @@ import style from './style.css';
 import { Button } from 'antd';
 import InputTools from '../InputTools';
 
+import { isSymbol, convertSymbolToReactDOMNode } from 'react-expressions-baidu';
+
 class Room extends Component {
 
 
     constructor(props){
         super(props);
+
+        this.state = {
+            symbols: []
+        };
+
         this.handleClose = this.handleClose.bind(this);
+        this.handleAddSymbol = this.handleAddSymbol.bind(this);
     }
 
     handleClose(){
         this.props.onClose();
+    }
+
+    handleAddSymbol(symbol){
+        if(isSymbol(symbol))
+            this.setState({
+                symbols: [...this.state.symbols, symbol]
+            });
     }
 
     render() {
@@ -28,10 +43,15 @@ class Room extends Component {
                 </div>
 
                 <div className={style.content}>
+                    {
+                        this.state.symbols.map(symbol => {
+                            return <div key={Math.random()}>{convertSymbolToReactDOMNode(symbol)}</div>
+                        })
+                    }
                 </div>
 
                 <div className={style['input-tools']}>
-                    <InputTools />
+                    <InputTools onAddSymbol={this.handleAddSymbol}/>
                 </div>
 
 

@@ -48,6 +48,7 @@
     "mongoose": "^4.8.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-expressions-baidu": "^1.0.0",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
     "redis": "^2.6.5",

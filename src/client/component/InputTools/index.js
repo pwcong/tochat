@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Button, Input, Popover } from 'antd';
 import style from './style.css';
 
+import { Picker } from 'react-expressions-baidu';
+
 class InputTools extends Component {
 
 
@@ -16,6 +18,7 @@ class InputTools extends Component {
         this.handleMessageChange = this.handleMessageChange.bind(this);
         this.handleSendMessage = this.handleSendMessage.bind(this);
         this.handlePopoverVisibleChange = this.handlePopoverVisibleChange.bind(this);
+        this.handleAddSymbol = this.handleAddSymbol.bind(this);
     }
 
     handleMessageChange(e){
@@ -41,13 +44,22 @@ class InputTools extends Component {
         });
     }
 
+    handleAddSymbol(symbol){
+        this.setState({
+            popoverVisible: false
+        });
+        this.props.onAddSymbol(symbol);
+    }
+
     render() {
         return (
             <div className={style.root}>
                 
                 <div className={style.btn}>
                     <Popover
-                        content={<p>Hello World</p>}
+                        content={
+                            <Picker onItemClick={this.handleAddSymbol}/>
+                        }
                         trigger="click"
                         onVisibleChange={this.handlePopoverVisibleChange}
                         visible={this.state.popoverVisible}>
@@ -66,12 +78,16 @@ class InputTools extends Component {
 }
 
 InputTools.propTypes = {
-    onSendMessage: PropTypes.func
+    onSendMessage: PropTypes.func,
+    onAddSymbol: PropTypes.func
 };
 
 InputTools.defaultProps = {
     onSendMessage(message){
         console.log(message);
+    },
+    onAddSymbol(symbol){
+        console.log(symbol);
     }
 };
 
