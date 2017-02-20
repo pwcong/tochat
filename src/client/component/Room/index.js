@@ -15,7 +15,7 @@ class Room extends Component {
         this.state = {
             symbols: []
         };
-
+        
         this.handleClose = this.handleClose.bind(this);
         this.handleAddSymbol = this.handleAddSymbol.bind(this);
     }
@@ -31,6 +31,17 @@ class Room extends Component {
             });
     }
 
+    componentDidMount(){
+        let content = this.refs.content;
+        content.scrollTop = content.scrollHeight;
+    }
+
+    componentDidUpdate(){
+        
+        let content = this.refs.content;
+        content.scrollTop = content.scrollHeight;
+    }
+
     render() {
         return (
             <div className={style.root}>
@@ -43,18 +54,15 @@ class Room extends Component {
                     
                 </div>
 
-                <div className={style.content}>
-                    <MessageBubble>
-                        Hello World
-                    </MessageBubble>
-                    
-                    <MessageBubble></MessageBubble>
+                <div className={style.content} ref="content">
 
                     {
                         this.state.symbols.map(symbol => {
                             return <div key={Math.random()}>
-                                        <MessageBubble>
-                                        {convertSymbolToReactDOMNode(symbol)}
+                                        <MessageBubble 
+                                            uid={this.props.uid}
+                                            self={true}>
+                                            {convertSymbolToReactDOMNode(symbol)}
                                         </MessageBubble>
                                     </div>
                         })
@@ -73,11 +81,13 @@ class Room extends Component {
 
 Room.propTypes = {
     name: PropTypes.string,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    uid: PropTypes.string,
 };
 
 Room.defaultProps = {
-    name: 'Test',
+    uid: 'null',
+    name: 'null',
     onClose(){
         console.log('on close');
     }

@@ -13,43 +13,64 @@ class MessageBubble extends Component {
     }
 
     render() {
+
         return (
-            <div className={style.root}>
-                <div 
-                    onClick={this.handleAvatarClick}
-                    className={style.avatar}
-                    style={{
-                        backgroundImage: 'url(' + this.props.avatar + ')'
-                    }}
-                    >
-                </div>
+            <div className={this.props.self ? style['root-right'] : style['root-left']}>
+                {
+                    this.props.self ? '' : (
+                        <div 
+                            onClick={this.handleAvatarClick}
+                            className={style.avatar}
+                            style={{
+                                backgroundImage: 'url(' + this.props.avatar + ')'
+                            }}
+                            >
+                        </div>
+                    )
+                }
 
-                <div>
+                <div className={this.props.self ? style['container-right'] : style['container-left']}>
                     <h3>{this.props.uid}</h3>
-                    <div className={style.content}>
+                    <div 
+                        className={style.content} 
+                        style={{
+                            backgroundColor: this.props.self ? '#65f031' : 'white'
+                        }}>
 
-                        <div className={style.triangle}><span></span></div>
+                        <div className={this.props.self ? style['triangle-right'] : style['triangle-left']}><span></span></div>
 
                         {this.props.children}
-
                     </div>
 
                 </div>
-                
-                
+
+                {
+                    this.props.self ? (
+                        <div 
+                            onClick={this.handleAvatarClick}
+                            className={style.avatar}
+                            style={{
+                                backgroundImage: 'url(' + this.props.avatar + ')'
+                            }}
+                            >
+                        </div>
+                    ) : ''
+                }
             </div>
         );
     }
 }
 
 MessageBubble.propTypes = {
+    self: PropTypes.bool,
     uid: PropTypes.string,
     avatar: PropTypes.string,
     onAvatarClick: PropTypes.func
 };
 
 MessageBubble.defaultProps = {
-    uid: 'Pwcong',
+    self: false,
+    uid: 'null',
     avatar: '/image/avatar.jpg',
     onAvatarClick(uid){
         console.log(uid);

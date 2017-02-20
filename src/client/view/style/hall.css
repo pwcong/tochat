@@ -46,12 +46,12 @@
 
 :local .room-head-item:hover{
     color: white;
-    background: orange;
+    background: #49a8ed;
 }
 
 :local .room-head-item:active{
     color: white;
-    background: #FF6600;
+    background: #117cc8;
 }
 
 

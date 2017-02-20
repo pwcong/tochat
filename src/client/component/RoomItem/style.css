@@ -6,12 +6,16 @@
     transition: border-bottom 0.3s;
 }
 
+:local .root:active{
+    border-bottom: 2px #117cc8 solid;
+}
+
 :local .root:hover{
-    border-bottom: 2px orange solid;
+    border-bottom: 2px #49a8ed solid;
 } 
 
 :local .active{
-    border-bottom: 2px #FF6600 solid;
+    border-bottom: 2px #49a8ed solid;
 }
 
 

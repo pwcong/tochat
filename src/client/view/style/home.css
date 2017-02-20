@@ -12,9 +12,9 @@
 	top: 0px;
 	padding: 10px;
 	height: 100%;
-	background: #dedede;
+	
 	box-shadow: 0px 0px 20px 2px;
-	background: url(/image/sidebar.jpg);
+	background: #333;
 }
 
 :local .sidebar-menu{
@@ -34,15 +34,15 @@
 
 
 :local .sidebar-menu a:hover{
-	color: orange;
+	color: white;
 }
 
 :local .sidebar-menu a:active{
-	color: #FF6600;
+	color: #aaa;
 }
 
 :local .sidebar-menu-active{
-	color: orange;
+	color: white;
 }
 
 :local .sidebar-avatar{
@@ -62,18 +62,18 @@
 }
 
 :local .btn-logout a{
-	color: white;
+	color: #0b74bf;
 	transition: color 0.3s;
 }
 
 :local .btn-logout:hover a{
 
-	color: orange;
+	color: white;
 }
 
 :local .btn-logout:active a{
 
-	color: #FF6600;
+	color: #aaa;
 	
 }
 

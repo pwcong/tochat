@@ -1,13 +1,20 @@
-:local .root{
+:local .root-left{
     margin-bottom: 8px;
-    display: flex;
+    display: flex; 
+    justify-content: flex-start;
     flex-flow: row nowrap;
-    border: 1px red solid;
+}
+
+:local .root-right{
+    margin-bottom: 8px;
+    display: flex; 
+    justify-content: flex-end;
+    flex-flow: row nowrap;
 }
 
 :local .avatar{
     cursor: pointer;
-    margin-right: 8px;
+    margin: 12px;
     width: 36px;
     min-width: 36px;
     height: 36px;
@@ -16,10 +23,19 @@
     background-size: cover;
 }
 
+:local .container-left h3{
+    text-align: left;
+}
+
+:local .container-right h3{
+    text-align: right;
+}
+
+
+
 :local .content{
     justify-content: center;
     position: relative;
-    background-color: white;
     margin-top: 4px;
     display: flex;
     border-radius: 4px;
@@ -31,7 +47,7 @@
 
 }
 
-:local .triangle{
+:local .triangle-left{
     position: absolute;
     width:0;
     height:0;
@@ -39,17 +55,41 @@
     border-style:solid;
     border-color:transparent #aaa transparent transparent;/*透明 灰 透明 透明 */
     top: 3px;
-    left: -10px;
-
+    left: -9px;
+    transform: rotate(25deg);
 }
 
-:local .triangle span{
+:local .triangle-left span{
     display:block;
     width:0;
     height:0;
     border-width:4px 10px 4px 0;
     border-style:solid;
     border-color:transparent white transparent transparent;/*透明 黄 透明 透明 */
+    position:absolute;
+    top: -4px;
+    left: 1px;
+}
+
+:local .triangle-right{
+    position: absolute;
+    width:0;
+    height:0;
+    border-width:5px 10px 5px 0;
+    border-style:solid;
+    border-color:transparent #aaa transparent transparent;/*透明 灰 透明 透明 */
+    top: 3px;
+    right: -9px;
+    transform: rotate(-25deg) scaleX(-1);
+}
+
+:local .triangle-right span{
+    display:block;
+    width:0;
+    height:0;
+    border-width:4px 10px 4px 0;
+    border-style:solid;
+    border-color:transparent #65f031 transparent transparent;/*透明 黄 透明 透明 */
     position:absolute;
     top: -4px;
     left: 1px;
