@@ -12,23 +12,16 @@ class Room extends Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            symbols: []
-        };
-        
         this.handleClose = this.handleClose.bind(this);
-        this.handleAddSymbol = this.handleAddSymbol.bind(this);
+        this.handleSendMessage = this.handleSendMessage.bind(this);
     }
 
     handleClose(){
         this.props.onClose();
     }
 
-    handleAddSymbol(symbol){
-        if(isSymbol(symbol))
-            this.setState({
-                symbols: [...this.state.symbols, symbol]
-            });
+    handleSendMessage(msg){
+        this.props.onSendMessage(msg);
     }
 
     componentDidMount(){
@@ -57,20 +50,30 @@ class Room extends Component {
                 <div className={style.content} ref="content">
 
                     {
-                        this.state.symbols.map(symbol => {
-                            return <div key={Math.random()}>
-                                        <MessageBubble 
-                                            uid={this.props.uid}
-                                            self={true}>
-                                            {convertSymbolToReactDOMNode(symbol)}
-                                        </MessageBubble>
-                                    </div>
+                        this.props.message.map( item => {
+                            return (
+                                <div key={item.dateTime}>
+                                    <MessageBubble 
+                                        uid={item.uid}
+                                        avatar={item.avatar || '/image/avatar.jpg'}
+                                        self={this.props.uid === item.uid}>
+                                        {
+                                            isSymbol(item.msg) ?  
+                                                convertSymbolToReactDOMNode(item.msg)
+                                                :
+                                                item.msg
+                                        }
+                                    </MessageBubble>
+                                </div>
+                            )
                         })
                     }
                 </div>
 
                 <div className={style['input-tools']}>
-                    <InputTools onAddSymbol={this.handleAddSymbol}/>
+                    <InputTools 
+                        onAddSymbol={this.handleSendMessage} 
+                        onSendMessage={this.handleSendMessage}/>
                 </div>
 
 
@@ -80,16 +83,22 @@ class Room extends Component {
 }
 
 Room.propTypes = {
+    message: PropTypes.array,
     name: PropTypes.string,
     onClose: PropTypes.func,
     uid: PropTypes.string,
+    onSendMessage: PropTypes.func
 };
 
 Room.defaultProps = {
+    message: [],
     uid: 'null',
     name: 'null',
     onClose(){
         console.log('on close');
+    },
+    onSendMessage(msg){
+        console.log(msg);
     }
 }
 

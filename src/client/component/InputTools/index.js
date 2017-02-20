@@ -29,12 +29,13 @@ class InputTools extends Component {
 
     handleSendMessage(){
 
-        var message = this.state.message;
-        this.props.onSendMessage(message);
-        this.setState({
-            message: ''
-        });
-        
+        if(this.state.message){ 
+            var message = this.state.message;
+            this.props.onSendMessage(message);
+            this.setState({
+                message: ''
+            });
+        }
 
     }
 

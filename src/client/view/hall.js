@@ -12,10 +12,19 @@ import Room from '../component/Room';
 import { 
 	TYPE_JOIN_ROOM, 
 	TYPE_JOIN_ROOM_RESPONSE,
-	TYPE_LEAVE_ROOM
+	TYPE_LEAVE_ROOM,
+	TYPE_RECEIVE_MSG_FROM_ROOM,
+	TYPE_SEND_MSG_TO_ROOM
 } from '../../../config/io.config';
 
-import { joinRoom, leaveRoom } from '../actions/roomstate';
+import { 
+	joinRoom, 
+	leaveRoom 
+} from '../actions/roomstate';
+
+import { 
+	receiveMsgFromRoom
+} from '../actions/data';
 
 class Hall extends React.Component{
 
@@ -24,13 +33,14 @@ class Hall extends React.Component{
 
 		this.state = {
 			loadingRooms: false,
-			enteringRoom: false
+			joiningRoom: false
 		}
 
 		this.handleGetRooms = this.handleGetRooms.bind(this);
 		this.handleCreateRoom = this.handleCreateRoom.bind(this);
 		this.handleJoinRoom = this.handleJoinRoom.bind(this);
 		this.handleLeaveRoom = this.handleLeaveRoom.bind(this);
+		this.handleSendMessage = this.handleSendMessage.bind(this);
 	}
 
 	componentWillMount(){
@@ -38,8 +48,26 @@ class Hall extends React.Component{
 		let ctx = this;
 		
 		socket.on(TYPE_JOIN_ROOM_RESPONSE, bundle => {
-			this.props.dispatch(joinRoom(bundle.payload.name));
+			ctx.setState({
+				joiningRoom: false
+			});
+			ctx.props.dispatch(joinRoom(bundle.payload.name));		
 		});
+
+		socket.on(TYPE_RECEIVE_MSG_FROM_ROOM, bundle => {
+
+			ctx.props.dispatch(receiveMsgFromRoom(
+				ctx.props.roomstate.name,
+				bundle.dateTime,
+				bundle.payload.from.uid,
+				bundle.payload.from.avatar,
+				bundle.payload.msg
+			));
+
+		});
+
+
+
 	}
 
 	handleGetRooms(){
@@ -69,10 +97,15 @@ class Hall extends React.Component{
 
 	handleCreateRoom(){
 
+
+
+
 	}
 
 	handleJoinRoom(name){
-
+		this.setState({
+			joiningRoom: true
+		});
 		let ctx = this;
 		socket.emit(TYPE_JOIN_ROOM, {
 			dateTime: new Date().getTime(),
@@ -98,6 +131,23 @@ class Hall extends React.Component{
 
 		this.props.dispatch(leaveRoom());
 
+	}
+
+	handleSendMessage(msg){
+
+		let ctx = this;
+
+		socket.emit(TYPE_SEND_MSG_TO_ROOM, {
+			dateTime: new Date().getTime(),
+			payload: {
+				from: {
+					uid: ctx.props.userstate.uid,
+					avatar: ctx.props.userstate.userinfo.avatar
+				},
+				to: ctx.props.roomstate.name,
+				msg
+			}
+		});
 	}
 
 	render(){
@@ -135,14 +185,16 @@ class Hall extends React.Component{
 				</div>
 
 				<div className={style.container}>
-					{ this.state.enteringRoom ? 
+					{ this.state.joiningRoom ? 
 						<HallLoading/> 
 						:  
 						this.props.roomstate.name === '' ? 
 							<HallIndex />
 							:
 							<Room
-							
+								message={this.props.data.roomMessage[this.props.roomstate.name]}
+								onSendMessage={this.handleSendMessage}
+								uid={this.props.userstate.uid}
 								name={this.props.roomstate.name}
 								onClose={this.handleLeaveRoom}/>
 						
@@ -161,7 +213,8 @@ class Hall extends React.Component{
 function select(state){
 	return ({
 		roomstate: state.roomstate,
-		userstate: state.userstate
+		userstate: state.userstate,
+		data: state.data
 	});
 }
 

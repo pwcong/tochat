@@ -18,8 +18,11 @@ module.exports = io => {
             });
  
             socket.on(config.TYPE_SEND_MSG_TO_ROOM, bundle => {
-                socket
-                    .to(bundle.payload.to)
+
+                console.log("send msg to room: " + JSON.stringify(bundle));
+
+                io
+                    .to(socket.room)
                     .emit(
                         config.TYPE_RECEIVE_MSG_FROM_ROOM,
                         {
@@ -30,7 +33,7 @@ module.exports = io => {
                             }
                         }
                     );
-                console.log("send msg to room: " + JSON.stringify(bundle));
+                
             });
 
             socket.on(config.TYPE_JOIN_ROOM, bundle => {
@@ -39,7 +42,7 @@ module.exports = io => {
 
                     socket.room = bundle.payload.name;
 
-                    socket.to(bundle.payload.name).emit(
+                    io.to(bundle.payload.name).emit(
                         config.TYPE_JOIN_ROOM_BROADCAST,
                         {
                             dateTime: new Date().getTime,
@@ -69,7 +72,7 @@ module.exports = io => {
 
                 socket.join(config.INITIAL_ROOM, () => {
 
-                    socket.to(bundle.payload.name).emit(
+                    io.to(bundle.payload.name).emit(
                         config.TYPE_LEAVE_ROOM_BROADCAST,
                         {
                             dateTime: new Date().getTime,
@@ -90,7 +93,7 @@ module.exports = io => {
 
                 if(socket.room !== config.INITIAL_ROOM){
 
-                    socket.to(socket.room).emit(
+                    io.to(socket.room).emit(
                         config.TYPE_LEAVE_ROOM_BROADCAST,
                         {
                             dateTime: new Date().getTime,

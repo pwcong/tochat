@@ -23,7 +23,10 @@
 {
 	dateTime,
 	payload: {
-		from: uid,
+		from: {
+			uid,
+			avatar
+		},
 		to: room,
 		msg
 	}
@@ -35,7 +38,10 @@
 {
 	dateTime,
 	payload: {
-		from: uid,
+		from: {
+			uid,
+			avatar
+		},
 		msg
 	}
 }
@@ -46,7 +52,10 @@
 {
 	dateTime,
 	payload: {
-		from: uid,
+		from: {
+			uid,
+			avatar
+		},
 		to: uid,
 		msg
 	}
@@ -58,7 +67,10 @@
 {
 	dateTime,
 	payload: {
-		from: uid,
+		from: {
+			uid,
+			avatar
+		},
 		msg
 	}
 }
