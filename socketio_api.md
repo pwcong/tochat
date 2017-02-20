@@ -11,7 +11,7 @@
 ## BIND_UID
 ```
 {
-	type: BIND_UID,
+	dateTime,
 	payload: {
 		uid
 	}
@@ -21,7 +21,7 @@
 ## SEND_MSG_TO_ROOM
 ```
 {
-	type: SEND_MSG_TO_ROOM,
+	dateTime,
 	payload: {
 		from: uid,
 		to: room,
@@ -33,7 +33,7 @@
 ## RECEIVE_MSG_FROM_ROOM
 ```
 {
-	type: RECEIVE_MSG_FROM_ROOM,
+	dateTime,
 	payload: {
 		from: uid,
 		msg
@@ -44,7 +44,7 @@
 ## SEND_MSG_TO_USER
 ```
 {
-	type: SEND_MSG_TO_USER,
+	dateTime,
 	payload: {
 		from: uid,
 		to: uid,
@@ -56,7 +56,7 @@
 ## RECEIVE_MSG_FROM_USER
 ```
 {
-	type: RECEIVE_MSG_FROM_USER,
+	dateTime,
 	payload: {
 		from: uid,
 		msg
@@ -67,7 +67,18 @@
 ## JOIN_ROOM
 ```
 {
-	type: JOIN_ROOM,
+	dateTime,
+	payload: {
+		uid,
+		name
+	}
+}
+```
+
+## JOIN_ROOM_BROADCAST
+```
+{
+	dateTime,
 	payload: {
 		uid
 	}
@@ -77,8 +88,9 @@
 ## JOIN_ROOM_RESPONSE
 ```
 {
-	type: JOIN_ROOM_RESPONSE,
+	dateTime
 	payload: {
+		name,
 		status: 200|400
 	}
 }
@@ -87,7 +99,18 @@
 ## LEAVE_ROOM
 ```
 {
-	type: JOIN_ROOM_RESPONSE,
+	dateTime
+	payload: {
+		name,
+		uid
+	}
+}
+```
+
+## LEAVE_ROOM_BROADCAST
+```
+{
+	dateTime
 	payload: {
 		uid
 	}

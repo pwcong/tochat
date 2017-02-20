@@ -6,32 +6,44 @@ import { message } from 'antd';
 import { logout, toGetUserInfo } from '../actions/userstate';
 import { toGetRooms } from '../actions/roomstate';
 
+import { TYPE_BIND_UID } from '../../../config/io.config';
+
 class Home extends React.Component{
 
 	constructor(props) {
 		super(props);
-		this.componentWillMount = this.componentWillMount.bind(this);
+		
 		this.handleLogout = this.handleLogout.bind(this);
 	}
 
 	componentWillMount() {
-		if(!this.props.userstate.isLogined)
+		if(!this.props.userstate.isLogined){
 			hashHistory.push('/');
+		}else{
 
-		this.props.dispatch(toGetUserInfo(
-			this.props.userstate.uid,
-			err => {
-				message.error(err);
-			}
-		));
+			socket.emit(TYPE_BIND_UID, {
+				dateTime: new Date().getTime(),
+				payload: {
+					uid: this.props.userstate.uid
+				}
+			});
 
-		this.props.dispatch(toGetRooms(
-			()=>{},
-			()=>{},
-			err => {
-				message.error(err);
-			}
-		))
+			this.props.dispatch(toGetUserInfo(
+				this.props.userstate.uid,
+				err => {
+					message.error(err);
+				}
+			));
+
+			this.props.dispatch(toGetRooms(
+				()=>{},
+				()=>{},
+				err => {
+					message.error(err);
+				}
+			));
+
+		}
 		
 	}
 

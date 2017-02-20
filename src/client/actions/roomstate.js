@@ -34,5 +34,21 @@ export function toGetRooms(onStart, onSuccess, onFailed){
 		})
 
     }
+}
 
+export const ROOMSTATE_JOINROOM = 'ROOMSTATE_JOINROOM';
+export function joinRoom(name){
+	return ({
+		type: ROOMSTATE_JOINROOM,
+		payload: {
+			name
+		}
+	});
+}
+
+export const ROOMSTATE_LEAVEROOM = 'ROOMSTATE_LEAVEROOM';
+export function leaveRoom(){
+	return ({
+		type: ROOMSTATE_LEAVEROOM
+	});
 }
