@@ -13,9 +13,7 @@ module.exports = io => {
 
         io.on(config.TYPE_CONNECTION, socket => {
 
-            console.log('one user connected: ' + socket.id);
-
-            infoer('connectino', socket.id);
+            infoer('connection', socket.id);
 
             socket.join(config.INITIAL_ROOM, () => {
                 socket.room = config.INITIAL_ROOM;
@@ -48,7 +46,23 @@ module.exports = io => {
 
                 socket.join(bundle.payload.name, () => {
 
+                    if(socket.room !== config.INITIAL_ROOM){
+
+                        io.to(socket.room).emit(
+                            config.TYPE_LEAVE_ROOM_BROADCAST,
+                            {
+                                dateTime: new Date().getTime,
+                                payload: {
+                                    uid: bundle.payload.uid
+                                }
+                            }
+                        );
+
+                    }
+
                     socket.room = bundle.payload.name;
+
+                    
 
                     io.to(bundle.payload.name).emit(
                         config.TYPE_JOIN_ROOM_BROADCAST,

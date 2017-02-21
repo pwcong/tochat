@@ -16,7 +16,12 @@ export default (state = INITIAL_STATE, action) => {
     switch(action.type){
 
         case DATA_RECEIVE_MSG_FROM_ROOM:
+
+            if(state.roomMessage[action.payload.room] && state.roomMessage[action.payload.room].length >= 50)
+                state.roomMessage[action.payload.room].shift();
+
             return Object.assign({}, state, {
+
                 roomMessage: Object.assign({}, state.roomMessage, {
                     [action.payload.room]: state.roomMessage[action.payload.room] ? [...state.roomMessage[action.payload.room], {
                         dateTime: action.payload.dateTime,

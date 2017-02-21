@@ -1,7 +1,8 @@
 import {
     ROOMSTATE_GETROOMS,
     ROOMSTATE_JOINROOM,
-    ROOMSTATE_LEAVEROOM
+    ROOMSTATE_LEAVEROOM,
+    ROOMSTATE_CREATEROOM
 } from '../actions/roomstate';
 
 export const INITIAL_STATE = {
@@ -17,6 +18,10 @@ export default (state = INITIAL_STATE, action) => {
             return Object.assign({}, state, {
                 rooms: action.payload.rooms
             });
+        case ROOMSTATE_CREATEROOM:
+            return Object.assign({}, state, {
+                rooms: [...state.rooms, action.payload.room]
+            })
         case ROOMSTATE_JOINROOM:
             return Object.assign({}, state, {
                 name: action.payload.name

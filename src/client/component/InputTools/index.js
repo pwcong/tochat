@@ -67,7 +67,10 @@ class InputTools extends Component {
                         <Button icon="smile-o" shape="circle" size="large" type="primary"/>
                     </Popover>
                 </div>
-                <Input onChange={this.handleMessageChange} value={this.state.message}/>
+                <Input 
+                    onChange={this.handleMessageChange} 
+                    value={this.state.message}
+                    onPressEnter={this.handleSendMessage}/>
 
                 <div className={style.btn}>
                     <Button icon="arrow-right" size="large" onClick={this.handleSendMessage}/>

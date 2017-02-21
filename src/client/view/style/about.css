@@ -1,4 +1,40 @@
 :local .root{
 
+    width: 100%;
+    min-width: 400px;
+    min-height: 300px;
+    height: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+}
+
+:local .content{
+    width: 300px;
+    height: 250px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0px 0px 20px 2px;
+    padding: 16px;
+    display: flex;
+    flex-flow: row wrap;
+    
+}
+
+:local .content-item-logo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+:local .content-item{
+    width: 100%;
+    text-align: center;
+}
+
+:local .content-item-head{
+    font-size: 16px;
 }

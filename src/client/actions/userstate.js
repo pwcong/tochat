@@ -117,10 +117,31 @@ export function toGetUserInfo(uid, onFailed){
 				onFailed(json.message);
 		}).catch( err => {
 			onFailed('server error');
-		})
+		});
 
 
 	}
+}
+
+export function toGetOtherUserInfo(uid, onStart, onSuccess, onFailed){
+
+	return dispatch => {
+		onStart();
+
+		fetch(clientConfig.url.getUserInfo + '/' + uid)
+		.then( res => {
+			return res.json();
+		}).then( json => {
+			if(json.status === 200)
+				onSuccess(json.result.userinfo)
+			
+			else
+				onFailed(json.message);
+		}).catch( err => {
+			onFailed('server error');
+		});
+	}
+
 }
 
 export const USERSTATE_MODIFYUSERINFO = 'USERSTATE_MODIFYUSERINFO';
@@ -170,7 +191,7 @@ export function toModifyUserInfo(uid, token, userinfo, onStart, onSuccess, onFai
 				onFailed(json.message);
 		}).catch( err => {
 			onFailed('server error');
-		})		
+		});
 
 	}
 

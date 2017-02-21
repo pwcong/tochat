@@ -81,11 +81,11 @@ class MessageBubble extends Component {
                 }
 
                 <div className={this.props.self ? style['container-right'] : style['container-left']}>
-                    <h3>{this.props.uid}</h3>
+                    <h3>{this.props.uid || 'null'}</h3>
                     <div 
                         className={style.content} 
                         style={{
-                            backgroundColor: this.props.self ? '#65f031' : 'white'
+                            backgroundColor: this.props.self ? '#49a8ed' : 'white'
                         }}>
 
                         <div className={this.props.self ? style['triangle-right'] : style['triangle-left']}><span></span></div>
@@ -118,17 +118,13 @@ MessageBubble.propTypes = {
     onSendMsgToUser: PropTypes.func,
     self: PropTypes.bool,
     uid: PropTypes.string,
-    avatar: PropTypes.string,
-    onAvatarClick: PropTypes.func
+    avatar: PropTypes.string
 };
 
 MessageBubble.defaultProps = {
     self: false,
     uid: 'null',
     avatar: '/image/avatar.jpg',
-    onAvatarClick(uid){
-        console.log(uid);
-    },
     onReviewUserInfo(uid){
         console.log('review userinfo: ' + uid );
     },

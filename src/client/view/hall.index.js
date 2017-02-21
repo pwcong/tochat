@@ -6,7 +6,7 @@ class HallIndex extends Component {
     render() {
         return (
             <div className={style.root}>
-                <img src="/image/hall_bg.jpg" alt="bg"/>
+                <img src="/image/hall_bg.png" alt="bg"/>
             </div>
         );
     }

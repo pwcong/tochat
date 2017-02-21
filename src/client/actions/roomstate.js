@@ -31,9 +31,53 @@ export function toGetRooms(onStart, onSuccess, onFailed){
 			
 		}).catch( err => {
 			onFailed('server error');
-		})
+		});
 
     }
+}
+
+export const ROOMSTATE_CREATEROOM = 'ROOMSTATE_CREATEROOM';
+export function createRoom(room){
+	return ({
+		type: ROOMSTATE_CREATEROOM,
+		payload: {
+			room
+		}
+	});
+}
+export function toCreateRoom(token, uid, room, onStart, onSuccess, onFailed){
+
+	return dispatch => {
+
+		onStart();
+
+		fetch(clientConfig.url.createRoom,{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				token: token,
+				uid: uid,
+				room: room
+			})
+		}).then( res => {
+			return res.json();
+		}).then( json => {
+			if(json.status === 200){
+				dispatch(createRoom(json.result.room));
+				onSuccess();
+			}
+			else
+				onFailed(json.message);
+			
+		}).catch( err => {
+			onFailed('server error');
+		});
+		
+
+	}
+
 }
 
 export const ROOMSTATE_JOINROOM = 'ROOMSTATE_JOINROOM';

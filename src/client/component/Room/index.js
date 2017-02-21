@@ -15,6 +15,8 @@ class Room extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleSendMessage = this.handleSendMessage.bind(this);
         this.handleGetRoomUsers = this.handleGetRoomUsers.bind(this);
+        this.handleReviewUserInfo = this.handleReviewUserInfo.bind(this);
+        this.handleSendMsgToUser = this.handleSendMsgToUser.bind(this);
     }
 
     handleClose(){
@@ -39,7 +41,17 @@ class Room extends Component {
         content.scrollTop = content.scrollHeight;
     }
 
+    handleReviewUserInfo(uid){
+        this.props.onReviewUserInfo(uid);
+    }
+
+    handleSendMsgToUser(uid){
+        this.props.onSendMsgToUser(uid);
+    }
+
     render() {
+
+        let key = 0;
 
         const menu = (
             <Menu>
@@ -72,8 +84,10 @@ class Room extends Component {
                     {
                         this.props.message.map( item => {
                             return (
-                                <div key={item.dateTime}>
+                                <div key={key++}>
                                     <MessageBubble 
+                                        onSendMsgToUser={this.handleSendMsgToUser}
+                                        onReviewUserInfo={this.handleReviewUserInfo}
                                         uid={item.uid}
                                         avatar={item.avatar || '/image/avatar.jpg'}
                                         self={this.props.uid === item.uid}>
@@ -108,7 +122,9 @@ Room.propTypes = {
     onClose: PropTypes.func,
     uid: PropTypes.string,
     onSendMessage: PropTypes.func,
-    onGetRoomUsers: PropTypes.func
+    onGetRoomUsers: PropTypes.func,
+    onReviewUserInfo: PropTypes.func,
+    onSendMsgToUser: PropTypes.func
 };
 
 Room.defaultProps = {
@@ -123,6 +139,12 @@ Room.defaultProps = {
     },
     onGetRoomUsers(){
         console.log('on getRoomUsers');
+    },
+    onReviewUserInfo(uid){
+        console.log('on review userinfo: ' + uid);
+    },
+    onSendMsgToUser(uid){
+        console.log('on send msg to user:' + uid);
     }
 }
 

@@ -44,6 +44,8 @@
     flex-flow: row wrap;
     align-items: center;
     min-height: 36px;
+    font-size: 16px;
+    font-family: 'Microsoft YaHei', sans-serif;
 
 }
 
@@ -89,7 +91,7 @@
     height:0;
     border-width:4px 10px 4px 0;
     border-style:solid;
-    border-color:transparent #65f031 transparent transparent;/*透明 黄 透明 透明 */
+    border-color:transparent #49a8ed transparent transparent;/*透明 黄 透明 透明 */
     position:absolute;
     top: -4px;
     left: 1px;
