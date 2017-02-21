@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import style from './style.css';
-import { Button } from 'antd';
+import { Button, Menu, Dropdown, Icon } from 'antd';
 import InputTools from '../InputTools';
 import MessageBubble from '../MessageBubble';
 
@@ -14,6 +14,7 @@ class Room extends Component {
 
         this.handleClose = this.handleClose.bind(this);
         this.handleSendMessage = this.handleSendMessage.bind(this);
+        this.handleGetRoomUsers = this.handleGetRoomUsers.bind(this);
     }
 
     handleClose(){
@@ -24,6 +25,9 @@ class Room extends Component {
         this.props.onSendMessage(msg);
     }
 
+    handleGetRoomUsers(){
+        this.props.onGetRoomUsers();
+    }
     componentDidMount(){
         let content = this.refs.content;
         content.scrollTop = content.scrollHeight;
@@ -36,11 +40,27 @@ class Room extends Component {
     }
 
     render() {
+
+        const menu = (
+            <Menu>
+                <Menu.Item key="0">
+                    <a onClick={this.handleGetRoomUsers}>查看当前房间用户</a>
+                </Menu.Item> 
+            </Menu>
+        );
+
         return (
             <div className={style.root}>
 
                 <div className={style.header}>
-                    <h2>{this.props.name}</h2>
+                    <Dropdown overlay={menu} trigger={['click']}>
+                        <h2 
+                            style={{
+                                cursor: 'pointer'
+                            }}>
+                            {this.props.name}<Icon type="down"/>
+                        </h2>
+                    </Dropdown>
                     <div className={style['header-tools']}>
                         <Button icon="close" shape="circle" size="small" type="danger" onClick={this.handleClose}/>
                     </div>
@@ -87,7 +107,8 @@ Room.propTypes = {
     name: PropTypes.string,
     onClose: PropTypes.func,
     uid: PropTypes.string,
-    onSendMessage: PropTypes.func
+    onSendMessage: PropTypes.func,
+    onGetRoomUsers: PropTypes.func
 };
 
 Room.defaultProps = {
@@ -99,6 +120,9 @@ Room.defaultProps = {
     },
     onSendMessage(msg){
         console.log(msg);
+    },
+    onGetRoomUsers(){
+        console.log('on getRoomUsers');
     }
 }
 

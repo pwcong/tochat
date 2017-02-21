@@ -1,4 +1,11 @@
 var config = require('../../../config/io.config');
+var LoggerFactory = require('../utils/LoggerFactory');
+var LoggerUtils = require('../utils/LoggerUtils');
+
+const 
+	logger = LoggerFactory.getLogger('SocketIO'),
+	infoer = LoggerUtils.infoer(logger),
+	errorer = LoggerUtils.errorer(logger);
 
 module.exports = io => {
 
@@ -8,18 +15,18 @@ module.exports = io => {
 
             console.log('one user connected: ' + socket.id);
 
+            infoer('connectino', socket.id);
+
             socket.join(config.INITIAL_ROOM, () => {
                 socket.room = config.INITIAL_ROOM;
             });
 
             socket.on(config.TYPE_BIND_UID, bundle => {
                 socket.uid = bundle.payload.uid;
-                console.log("bind uid: " + JSON.stringify(bundle));
+                infoer('bindUID', JSON.stringify(bundle));
             });
  
             socket.on(config.TYPE_SEND_MSG_TO_ROOM, bundle => {
-
-                console.log("send msg to room: " + JSON.stringify(bundle));
 
                 io
                     .to(socket.room)
@@ -33,7 +40,8 @@ module.exports = io => {
                             }
                         }
                     );
-                
+                    
+                infoer('sendMsgTORoom', JSON.stringify(bundle));
             });
 
             socket.on(config.TYPE_JOIN_ROOM, bundle => {
@@ -62,9 +70,11 @@ module.exports = io => {
                             }                           
                         }
                     );
+                    
                 });
 
-                console.log("join room: " + JSON.stringify(bundle));
+                infoer('joinRoom', JSON.stringify(bundle));
+
             });
 
 
@@ -84,12 +94,11 @@ module.exports = io => {
 
                 });
 
-                console.log("leave room: " + JSON.stringify(bundle));
+                infoer('leaveRoom', JSON.stringify(bundle));
+
             });
 
             socket.on(config.TYPE_DISCONNECT, () => {
-
-                console.log("one user disconnected: " + socket.id);
 
                 if(socket.room !== config.INITIAL_ROOM){
 
@@ -103,6 +112,8 @@ module.exports = io => {
                         }
                     );
                 }
+
+                infoer('disconnect', socket.id);
 
             });
 
