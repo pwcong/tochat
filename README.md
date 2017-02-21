@@ -1,3 +1,5 @@
+![Demo](http://p1.bqimg.com/567571/31e27a18d45d23bf.gif)
+
 # tochat
 简单的web聊天室
 
